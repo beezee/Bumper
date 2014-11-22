@@ -102,7 +102,7 @@ describe EmailProcessor do
       
       it 'does not trigger HowToUseBumperWorker' do
         expect(HowToUseBumperWorker).to_not receive(:perform_async)
-        expect(processor.process).to be_nil
+        processor.process
       end
     end
 
@@ -110,7 +110,7 @@ describe EmailProcessor do
 
       it 'does not trigger BumperWorker' do
         expect(BumperWorker).to_not receive(:perform_at)
-        expect(processor.process).to be_nil
+        processor.process
       end
     end
 
@@ -120,7 +120,7 @@ describe EmailProcessor do
         expect(HowToUseBumperWorker).to receive(:perform_async).
           with('test_email@address.com', bad_to_addresses).
           exactly(1).times
-        expect(processor.process).to be_nil
+        processor.process
       end
     end
 
@@ -133,7 +133,7 @@ describe EmailProcessor do
         expect(BumperWorker).to receive(:perform_at).
           with(Chronic.parse('thursday at 4.45pm'), 'thursday-4.45pm', email).
           exactly(1).times
-        expect(processor.process).to be_nil
+        processor.process
       end
     end
 
