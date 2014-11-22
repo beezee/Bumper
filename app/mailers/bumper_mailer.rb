@@ -8,7 +8,8 @@ class BumperMailer < ActionMailer::Base
   end
 
   def return_reminder(email)
-    mail(to: email.from[:email], subject: email.subject, body: body_from(email))
+    mail(to: email.from[:email], subject: email.subject, 
+      content_type: 'text/html', body: body_from(email))
   end
 
   def how_to(recipient)
