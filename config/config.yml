@@ -1,0 +1,15 @@
+common: &common
+  from_address: 'bumper'
+  from_host: 'yourdomain.com'
+  authorized_emails: []
+
+development:
+  <<: *common
+
+production:
+  <<: *common
+
+test:
+  <<: *common
+  authorized_emails:
+    - 'test_email@address.com'
