@@ -48,6 +48,8 @@ group :development, :test do
 
   gem 'timecop'
 
+  gem 'mock_redis'
+
   gem 'pry'
   gem 'pry-debugger'
   gem 'debugger'
