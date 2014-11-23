@@ -6,7 +6,7 @@ class BumperWorker
   # will schedule all jobs, so to prevent dupes keep unique for
   # 20 min, scoped to from address and to token
   sidekiq_options unique: true, unique_job_expiration: 60 * 20,
-    unique_args: :token_and_from, backtrace: true
+    unique_args: :token_and_from, backtrace: 10
 
   def self.token_and_from(schedule_token, email)
     [schedule_token, email.from[:email]]
