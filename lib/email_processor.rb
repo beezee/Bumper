@@ -26,6 +26,8 @@ class EmailProcessor
   def process
     return unless from_authorized?
     addrs = bumper_addresses
+    Rails.logger.info { "processing incoming email with following " <<
+      "bumper addresses #{bumper_addresses.to_s.inspect}" }
     addrs[:supported].each do |(token, time)|
       # Passing in the email token as a unique id
       # to prevent dupes when multiple reminders are in to field
