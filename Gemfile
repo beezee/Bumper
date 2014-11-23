@@ -34,8 +34,8 @@ gem 'griddler'
 
 # Adapter for incoming email provider (choose one)
 # see https://github.com/thoughtbot/griddler#adapters
-gem 'griddler-sendgrid'
-# gem 'griddler-mandrill'
+#gem 'griddler-sendgrid'
+gem 'griddler-mandrill'
 # gem 'griddler-mailgun'
 # gem 'griddler-postmark'
 

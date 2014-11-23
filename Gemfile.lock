@@ -56,7 +56,7 @@ GEM
     griddler (1.1.0)
       htmlentities
       rails (>= 3.2.0)
-    griddler-sendgrid (0.0.1)
+    griddler-mandrill (1.0.2)
       griddler
     hike (1.2.3)
     hitimes (1.2.2)
@@ -189,7 +189,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   debugger
   griddler
-  griddler-sendgrid
+  griddler-mandrill
   jbuilder (~> 2.0)
   jquery-rails
   mock_redis
