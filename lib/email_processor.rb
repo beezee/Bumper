@@ -31,7 +31,11 @@ class EmailProcessor
     addrs[:supported].each do |(token, time)|
       # Passing in the email token as a unique id
       # to prevent dupes when multiple reminders are in to field
-      BumperWorker.perform_at(time, token, @email)
+      if Bumper::Application.config.settings.reminders_inline
+        BumperMailer.return_reminder(email).deliver
+      else
+        BumperWorker.perform_at(time, token, @email)
+      end
     end
     if addrs[:unsupported].any?
       HowToUseBumperWorker.
