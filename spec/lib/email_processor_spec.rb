@@ -1,6 +1,11 @@
 describe EmailProcessor do
   let(:email_settings) { {} }
   let(:email) { OpenStruct.new(email_settings) }
+  let(:email_params) do
+    {from: email.from[:email], subject: email.subject,
+      text: email.raw_text, html: email.raw_html}
+  end
+             
   let(:processor) { EmailProcessor.new(email) }
 
   class ToAddressGenerator
@@ -128,10 +133,10 @@ describe EmailProcessor do
       
       it 'hands off to BumperWorker with supported emails' do
         expect(BumperWorker).to receive(:perform_at).
-          with(8.days.from_now, '1week1day', email).
+          with(8.days.from_now, '1week1day', email_params).
           exactly(1).times
         expect(BumperWorker).to receive(:perform_at).
-          with(Chronic.parse('thursday at 4.45pm'), 'thursday-4.45pm', email).
+          with(Chronic.parse('thursday at 4.45pm'), 'thursday-4.45pm', email_params).
           exactly(1).times
         processor.process
       end

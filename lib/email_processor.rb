@@ -23,6 +23,11 @@ class EmailProcessor
     r
   end
 
+  def email_params
+    {from: @email.from[:email], subject: @email.subject,
+      text: @email.raw_text, html: @email.raw_html}
+  end
+
   def process
     return unless from_authorized?
     addrs = bumper_addresses
@@ -31,11 +36,7 @@ class EmailProcessor
     addrs[:supported].each do |(token, time)|
       # Passing in the email token as a unique id
       # to prevent dupes when multiple reminders are in to field
-      if Bumper::Application.config.settings.reminders_inline
-        BumperMailer.return_reminder(@email).deliver
-      else
-        BumperWorker.perform_at(time, token, @email)
-      end
+      BumperWorker.perform_at(time, token, email_params)
     end
     if addrs[:unsupported].any?
       HowToUseBumperWorker.

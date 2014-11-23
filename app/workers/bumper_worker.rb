@@ -9,7 +9,7 @@ class BumperWorker
     unique_args: :token_and_from, backtrace: 10
 
   def self.token_and_from(schedule_token, email)
-    [schedule_token, email.from[:email]]
+    [schedule_token, email[:from]]
   end
 
   # take in schedule_token for uniqueness

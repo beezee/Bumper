@@ -4,13 +4,13 @@ class BumperMailer < ActionMailer::Base
     Bumper::Application.config.settings.from_host
 
   def body_from(email)
-    email.raw_html.blank? ? email.raw_text : email.raw_html
+    email[:html].blank? ? email[:text] : email[:html]
   end
 
   def return_reminder(email)
     Rails.logger.info "Mailing reminder for #{email.to_s.inspect}"
-    mail(to: email.from[:email], content_type: 'text/html',
-      subject: email.subject, body: body_from(email))
+    mail(to: email[:from], content_type: 'text/html',
+      subject: email[:subject], body: body_from(email))
   end
 
   def how_to(recipient)
