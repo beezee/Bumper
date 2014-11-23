@@ -14,6 +14,8 @@ class BumperWorker
 
   # take in schedule_token for uniqueness
   def perform(schedule_token, email)
+    Rails.logger.info { "processing reminder for #{schedule_token} " <<
+      email.to_s.inspect } 
     BumperMailer.return_reminder(email).deliver
   end
 end

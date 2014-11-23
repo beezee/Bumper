@@ -8,6 +8,7 @@ class BumperMailer < ActionMailer::Base
   end
 
   def return_reminder(email)
+    Rails.logger.info "Mailing reminder for #{email.to_s.inspect}"
     mail(to: email.from[:email], 
       subject: email.subject, body: body_from(email))
   end
