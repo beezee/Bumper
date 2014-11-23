@@ -32,7 +32,7 @@ class EmailProcessor
       # Passing in the email token as a unique id
       # to prevent dupes when multiple reminders are in to field
       if Bumper::Application.config.settings.reminders_inline
-        BumperMailer.return_reminder(email).deliver
+        BumperMailer.return_reminder(@email).deliver
       else
         BumperWorker.perform_at(time, token, @email)
       end
