@@ -46,6 +46,21 @@ describe EmailProcessor do
     end
   end
 
+  describe '#time_from_token' do
+
+    it 'defaults to UTC' do
+      expect(Bumper::Application.config.settings).to receive(:timezone).
+        and_return(nil).exactly(1).times
+      expect(processor.time_from_token('tomorrow').zone).to eq('UTC')
+    end
+
+    it 'reads tz from config when present' do
+      expect(Bumper::Application.config.settings).to receive(:timezone).
+        and_return('EST').exactly(1).times
+      expect(processor.time_from_token('tomorrow').zone).to eq('EST')
+    end
+  end
+
   describe '#bumper_addresses' do
     before { Timecop.freeze }
     after { Timecop.return }

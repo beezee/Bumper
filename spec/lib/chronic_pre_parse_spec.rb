@@ -12,7 +12,7 @@ describe ChronicPreParse do
     it 'returns nil when no patterns are matched' do
       expect(parse(1)).to be_nil
     end
-
+    
     it 'parses tomorrow into 24 hours from now' do
       expect(parse('tomorrow')).to eq(' 24 hours from now ')
     end

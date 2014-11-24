@@ -9,11 +9,21 @@ class EmailProcessor
       authorized_emails.include?(@email.from[:email])
   end
 
+  def zone
+    @zone ||= ActiveSupport::TimeZone.new(
+      (Bumper::Application.config.settings.timezone || 'UTC'))
+  end
+
+  def time_from_token(token)
+    Chronic.time_class = zone
+    Chronic.parse(ChronicPreParse.parse(token))
+  end
+
   def bumper_addresses
     r = {supported: [], unsupported: []}
     @email.to.each do |to|
       next unless to[:host] == Bumper::Application.config.settings.from_host
-      time = Chronic.parse(ChronicPreParse.parse(to[:token]))
+      time = time_from_token(to[:token])
       if time
         r[:supported].push([to[:token], time])
       else

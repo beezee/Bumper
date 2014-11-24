@@ -2,6 +2,7 @@ common: &common
   from_address: 'bumper'
   from_host: 'yourdomain.com'
   authorized_emails: []
+  timezone: 'UTC'
 
 development:
   <<: *common
