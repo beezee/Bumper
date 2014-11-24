@@ -10,7 +10,7 @@ class HowToUseBumperWorker
   def perform(to_address, unsupported_tokens)
     @unsupported_addresses = unsupported_tokens.
       map {|token| "#{token}@#{Bumper::Application.config.settings.from_host}"}
-    BumperMailer.return_reminder(email).deliver
+    BumperMailer.how_to(to_address).deliver
   end
 end
 

@@ -2,6 +2,25 @@ require 'spec_helper'
 
 describe ChronicPreParse do
 
+  describe '.token_is_time?' do
+    
+    describe 'when token is a supported format of time of day' do
+
+      it 'is true' do
+        times = %W{9.10am 9am 10.10am 10am 9.10pm 9pm 10.10pm 10pm}
+        times.each { |t| expect(ChronicPreParse.token_is_time?(t)).to be_truthy }
+      end
+    end
+
+    describe 'when token is not a supported format of time of day' do
+
+      it 'is false' do
+        times = %W{9.10gm 9gm 1010am fooam g.10pm spm 1010pm 10p}
+        times.each { |t| expect(ChronicPreParse.token_is_time?(t)).to be_nil }
+      end
+    end
+  end
+
   describe '.parse' do
     def parse(s)
       ChronicPreParse.parse(s)

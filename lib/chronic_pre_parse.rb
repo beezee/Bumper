@@ -21,11 +21,15 @@ module ChronicPreParse
     /#{DURATION_MATCH}/ => ' \1 \2 from now '
   }
 
+  def self.token_is_time?(token)
+    token.match(/^\d(\d)?(\.\d\d)?(am|pm)$/)
+  end
+
   def self.parse(token)
     r = token.to_s.clone
     PATTERNS.each do |match, replace|
       r.gsub!(match, replace)
     end
-    r == token.to_s ? nil : r
+    r == token.to_s && !self.token_is_time?(token.to_s) ? nil : r
   end
 end
