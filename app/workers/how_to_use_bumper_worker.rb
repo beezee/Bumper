@@ -8,9 +8,9 @@ class HowToUseBumperWorker
   sidekiq_options unique: true, unique_job_expiration: 60 * 20
 
   def perform(to_address, unsupported_tokens)
-    @unsupported_addresses = unsupported_tokens.
+    unsupported_addresses = unsupported_tokens.
       map {|token| "#{token}@#{Bumper::Application.config.settings.from_host}"}
-    BumperMailer.how_to(to_address).deliver
+    BumperMailer.how_to(to_address, unsupported_addresses).deliver
   end
 end
 

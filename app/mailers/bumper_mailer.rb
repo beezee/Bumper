@@ -15,7 +15,8 @@ class BumperMailer < ActionMailer::Base
       subject: email[:subject])
   end
 
-  def how_to(recipient)
+  def how_to(recipient, unsupported_addresses=[])
+    @unsupported_addresses = unsupported_addresses
     mail(to: recipient, 
       subject: "Bumper error: Couldn't determine reminder schedule")
   end
